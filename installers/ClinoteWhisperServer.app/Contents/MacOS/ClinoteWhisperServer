@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_DIR="$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")"
+
+# Set up environment
+export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+
+# Check if Python is installed
+if ! command -v python3 &> /dev/null; then
+    osascript -e 'display dialog "Python 3 is required but not installed. Please install Python 3.8+ from python.org and try again." buttons {"OK"} default button "OK" with icon stop'
+    exit 1
+fi
+
+# Create installation directory if it doesn't exist
+INSTALL_DIR="$HOME/Applications/ClinoteWhisperServer"
+if [ ! -d "$INSTALL_DIR" ]; then
+    mkdir -p "$INSTALL_DIR"
+fi
+
+# Copy server files if they don't exist
+if [ ! -f "$INSTALL_DIR/whisper_server.py" ]; then
+    cp -r "$APP_DIR/local-server"/* "$INSTALL_DIR/"
+fi
+
+# Navigate to installation directory
+cd "$INSTALL_DIR"
+
+# Create virtual environment if it doesn't exist
+if [ ! -d "venv" ]; then
+    python3 -m venv venv
+fi
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Install dependencies if requirements.txt exists
+if [ -f "requirements.txt" ]; then
+    pip install --upgrade pip
+    pip install -r requirements.txt
+fi
+
+# Show notification that server is starting
+osascript -e 'display notification "Starting Clinote Whisper Server..." with title "Clinote Whisper Server"'
+
+# Start the server
+echo "Starting Clinote Whisper Server..."
+echo "Server will be available at: http://localhost:11434"
+echo "Press Ctrl+C to stop the server"
+echo
+
+python whisper_server.py 
