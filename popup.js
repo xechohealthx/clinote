@@ -455,8 +455,8 @@ class ClinotePopup {
       downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.bat`;
       filename = 'Clinote-Whisper-Installer.bat';
     } else if (userAgent.includes('Mac')) {
-      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.command`;
-      filename = 'Clinote-Whisper-Installer.command';
+      downloadUrl = `${baseUrl}/macos-install-instructions.txt`;
+      filename = 'macos-install-instructions.txt';
     } else {
       // Fallback to manual instructions
       this.showManualInstallInstructions();
@@ -473,7 +473,7 @@ class ClinotePopup {
         console.error('Download failed:', chrome.runtime.lastError);
         this.showManualInstallInstructions();
       } else {
-        this.showNotification('Download started! Double-click the file to install.', 'success');
+        this.showNotification('Download started! Open the text file and follow the instructions.', 'success');
       }
     });
   }

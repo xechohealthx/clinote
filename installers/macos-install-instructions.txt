@@ -1,0 +1,24 @@
+Clinote Whisper Server - macOS Installation Instructions
+======================================================
+
+If you're seeing a permission error, follow these steps:
+
+1. Open Terminal (Applications → Utilities → Terminal)
+
+2. Copy and paste these commands one by one:
+
+cd ~/Downloads
+curl -O https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Whisper-Installer.command
+chmod +x Clinote-Whisper-Installer.command
+./Clinote-Whisper-Installer.command
+
+That's it! The installer will run automatically.
+
+If you still get permission errors, try:
+sudo spctl --master-disable
+(Then run the commands above)
+
+To re-enable security after installation:
+sudo spctl --master-enable
+
+The server will be available at: http://localhost:11434 
