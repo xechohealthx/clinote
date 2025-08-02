@@ -446,34 +446,15 @@ class ClinotePopup {
   }
 
   downloadInstaller() {
-    const userAgent = navigator.userAgent;
-    const baseUrl = 'https://github.com/xechohealthx/clinote/releases/latest/download';
-    let downloadUrl = '';
-    let filename = '';
+    // Open the web installer in a new tab
+    const installerUrl = 'https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Web-Installer.html';
     
-    if (userAgent.includes('Windows')) {
-      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.bat`;
-      filename = 'Clinote-Whisper-Installer.bat';
-    } else if (userAgent.includes('Mac')) {
-      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.command`;
-      filename = 'Clinote-Whisper-Installer.command';
-    } else {
-      // Fallback to manual instructions
-      this.showManualInstallInstructions();
-      return;
-    }
-    
-    // Use Chrome downloads API for better UX
-    chrome.downloads.download({
-      url: downloadUrl,
-      filename: filename,
-      saveAs: true
-    }, (downloadId) => {
+    chrome.tabs.create({ url: installerUrl }, (tab) => {
       if (chrome.runtime.lastError) {
-        console.error('Download failed:', chrome.runtime.lastError);
+        console.error('Failed to open installer:', chrome.runtime.lastError);
         this.showManualInstallInstructions();
       } else {
-        this.showNotification('Download started! Check your Downloads folder.', 'success');
+        this.showNotification('Installer opened in new tab! Follow the instructions to install.', 'success');
       }
     });
   }
@@ -482,9 +463,9 @@ class ClinotePopup {
     const instructions = `
 Manual Installation Required:
 
-1. Download the installer file for your operating system
-2. Double-click the downloaded file to install
-3. If Python is not installed, it will open the download page
+1. Visit the web installer: https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Web-Installer.html
+2. Choose your operating system and follow the instructions
+3. Download and run the appropriate installer
 4. After installation, double-click the desktop shortcut to start the server
 5. Server will be available at http://localhost:11434
 
