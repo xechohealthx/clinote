@@ -452,11 +452,11 @@ class ClinotePopup {
     let filename = '';
     
     if (userAgent.includes('Windows')) {
-      downloadUrl = `${baseUrl}/clinote-whisper-windows-setup.exe`;
-      filename = 'clinote-whisper-windows-setup.exe';
+      downloadUrl = `${baseUrl}/clinote-whisper-windows-setup.bat`;
+      filename = 'clinote-whisper-windows-setup.bat';
     } else if (userAgent.includes('Mac')) {
-      downloadUrl = `${baseUrl}/clinote-whisper-macos.pkg`;
-      filename = 'clinote-whisper-macos.pkg';
+      downloadUrl = `${baseUrl}/macos-install.sh`;
+      filename = 'macos-install.sh';
     } else {
       // Fallback to manual instructions
       this.showManualInstallInstructions();
