@@ -1,0 +1,7 @@
+flask==2.3.3
+faster-whisper==0.9.0
+numpy==1.24.3
+torch==2.0.1
+transformers==4.35.0
+requests==2.31.0
+python-dotenv==1.0.0 

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinote Test Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .test-section h3 {
+            color: #374151;
+            margin-bottom: 15px;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .instructions {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .instructions h4 {
+            color: #065f46;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            color: #047857;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #bbf7d0;
+        }
+        .status.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .status.info {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Clinote Extension Test Page</h1>
+        
+        <div class="instructions">
+            <h4>📋 Testing Instructions</h4>
+            <ol>
+                <li>Make sure the Clinote extension is installed and enabled</li>
+                <li>Click the Clinote extension icon and configure your settings</li>
+                <li>Click "Start Transcription" in the extension popup</li>
+                <li>Speak into your microphone or play audio in this tab</li>
+                <li>Watch the floating UI appear with live transcription</li>
+                <li>Test the "Insert into Field" functionality below</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>🎤 Audio Test</h3>
+            <p>Speak clearly into your microphone or play audio in this tab to test transcription.</p>
+            <div id="audio-status" class="status info">
+                Waiting for audio input...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📝 Text Field Insertion Test</h3>
+            <p>Click in the text areas below, then use the "Insert into Field" button in the Clinote floating UI.</p>
+            
+            <label for="test-textarea">Textarea Test:</label>
+            <textarea id="test-textarea" placeholder="Click here, then insert summary from Clinote..."></textarea>
+            
+            <label for="test-input">Input Field Test:</label>
+            <input type="text" id="test-input" placeholder="Click here, then insert summary from Clinote...">
+            
+            <div contenteditable="true" style="border: 1px solid #d1d5db; padding: 12px; border-radius: 6px; min-height: 100px; margin-top: 10px;" placeholder="Click here, then insert summary from Clinote...">
+                <p>Contenteditable div test - click here and insert summary from Clinote...</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🔧 Extension Status</h3>
+            <div id="extension-status" class="status info">
+                Checking extension status...
+            </div>
+            <button onclick="checkExtensionStatus()" style="padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Check Status
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Test Results</h3>
+            <div id="test-results">
+                <p>Test results will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if Clinote extension is available
+        function checkExtensionStatus() {
+            const statusDiv = document.getElementById('extension-status');
+            
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                // Try to communicate with the extension
+                chrome.runtime.sendMessage({ type: 'GET_SETTINGS' }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        statusDiv.className = 'status error';
+                        statusDiv.textContent = 'Extension not found or not responding';
+                    } else if (response && response.settings) {
+                        statusDiv.className = 'status success';
+                        statusDiv.textContent = 'Extension is working! API Key: ' + 
+                            (response.settings.apiKey ? 'Configured' : 'Not configured');
+                    } else {
+                        statusDiv.className = 'status error';
+                        statusDiv.textContent = 'Extension responded but no settings found';
+                    }
+                });
+            } else {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = 'Chrome extension API not available';
+            }
+        }
+
+        // Listen for messages from the extension
+        if (typeof chrome !== 'undefined' && chrome.runtime) {
+            chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+                console.log('Received message from extension:', message);
+                
+                if (message.type === 'TRANSCRIPTION_UPDATE') {
+                    document.getElementById('test-results').innerHTML = 
+                        '<p><strong>Transcription:</strong> ' + message.transcript + '</p>';
+                }
+                
+                if (message.type === 'SUMMARY_UPDATE') {
+                    document.getElementById('test-results').innerHTML += 
+                        '<p><strong>Summary:</strong> ' + JSON.stringify(message.summary, null, 2) + '</p>';
+                }
+            });
+        }
+
+        // Check status on page load
+        window.addEventListener('load', () => {
+            setTimeout(checkExtensionStatus, 1000);
+        });
+
+        // Update audio status
+        function updateAudioStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('audio-status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+        }
+
+        // Listen for audio events
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    updateAudioStatus('Microphone access granted - ready for testing', 'success');
+                })
+                .catch(err => {
+                    updateAudioStatus('Microphone access denied - please grant permissions', 'error');
+                });
+        } else {
+            updateAudioStatus('Media devices not supported', 'error');
+        }
+    </script>
+</body>
+</html> 

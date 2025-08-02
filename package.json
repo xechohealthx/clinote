@@ -1,0 +1,24 @@
+{
+  "name": "clinote-chrome-extension",
+  "version": "1.0.0",
+  "description": "HIPAA-aware Chrome extension for medical transcription and clinical note generation",
+  "scripts": {
+    "build": "echo 'Chrome extension ready for installation'",
+    "dev": "echo 'Load extension in Chrome developer mode'",
+    "pack": "zip -r clinote-extension.zip . -x '*.git*' 'node_modules/*' 'package*.json'"
+  },
+  "keywords": [
+    "medical",
+    "transcription",
+    "HIPAA",
+    "clinical-notes",
+    "healthcare",
+    "chrome-extension"
+  ],
+  "author": "Healthcare Technology Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/clinote-extension"
+  }
+}
