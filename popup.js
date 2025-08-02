@@ -452,8 +452,8 @@ class ClinotePopup {
     let filename = '';
     
     if (userAgent.includes('Windows')) {
-      downloadUrl = `${baseUrl}/clinote-whisper-windows-setup.bat`;
-      filename = 'clinote-whisper-windows-setup.bat';
+      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.bat`;
+      filename = 'Clinote-Whisper-Installer.bat';
     } else if (userAgent.includes('Mac')) {
       downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.command`;
       filename = 'Clinote-Whisper-Installer.command';
@@ -482,10 +482,10 @@ class ClinotePopup {
     const instructions = `
 Manual Installation Required:
 
-1. Download the Clinote-Whisper-Installer.command file
+1. Download the installer file for your operating system
 2. Double-click the downloaded file to install
 3. If Python is not installed, it will open the download page
-4. After installation, double-click "Clinote Whisper Server.command" on your desktop
+4. After installation, double-click the desktop shortcut to start the server
 5. Server will be available at http://localhost:11434
 
 For detailed instructions, visit: https://github.com/xechohealthx/clinote
