@@ -516,15 +516,6 @@ For detailed instructions, visit: https://github.com/xechohealthx/clinote
     // Open GitHub repository in new tab
     chrome.tabs.create({ url: 'https://github.com/xechohealthx/clinote' });
   }
-    
-    this.showNotification('Manual installation required. Check console for instructions.', 'info');
-    console.log('=== Clinote Whisper Server Installation ===');
-    console.log(instructions);
-    console.log('=== End Instructions ===');
-    
-    // Open GitHub repository in new tab
-    chrome.tabs.create({ url: 'https://github.com/xechohealthx/clinote' });
-  }
 
   showNotification(message, type = 'info') {
     // Create notification element
