@@ -611,8 +611,8 @@ class ClinoteContent {
     });
 
     // Edit button
-    document.getElementById('clinote-edit').addEventListener('click', () => {
-      this.openSummaryEditor();
+    document.getElementById('clinote-edit').addEventListener('click', async () => {
+      await this.openSummaryEditor();
     });
 
     // Copy buttons
@@ -895,7 +895,7 @@ class ClinoteContent {
     }
 
     const activeElement = document.activeElement;
-    const formattedSummary = this.formatSummaryForInsertion();
+    const formattedSummary = await this.formatSummaryForInsertion();
 
     // Try different insertion methods
     if (activeElement && (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT')) {
@@ -922,7 +922,7 @@ class ClinoteContent {
     }
   }
 
-  formatSummaryForInsertion() {
+  async formatSummaryForInsertion() {
     if (!this.currentSummary) return '';
 
     // Format diagnosis codes
@@ -1012,7 +1012,7 @@ ${sections.join('\n\n')}
     `.trim();
   }
 
-  openSummaryEditor() {
+  async openSummaryEditor() {
     // Create modal editor
     const modal = document.createElement('div');
     modal.className = 'clinote-modal';
@@ -1023,7 +1023,7 @@ ${sections.join('\n\n')}
           <button class="clinote-modal-close">×</button>
         </div>
         <div class="clinote-modal-body">
-          <textarea id="clinote-summary-editor" rows="15">${this.formatSummaryForInsertion()}</textarea>
+          <textarea id="clinote-summary-editor" rows="15">Loading...</textarea>
         </div>
         <div class="clinote-modal-footer">
           <button class="clinote-btn-secondary" onclick="this.closest('.clinote-modal').remove()">Cancel</button>
@@ -1033,6 +1033,15 @@ ${sections.join('\n\n')}
     `;
 
     document.body.appendChild(modal);
+
+    // Load the formatted summary
+    try {
+      const formattedSummary = await this.formatSummaryForInsertion();
+      document.getElementById('clinote-summary-editor').value = formattedSummary;
+    } catch (error) {
+      console.error('Error loading summary for editing:', error);
+      document.getElementById('clinote-summary-editor').value = 'Error loading summary';
+    }
 
     // Setup modal events
     modal.querySelector('.clinote-modal-close').onclick = () => modal.remove();
