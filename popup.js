@@ -430,18 +430,21 @@ class ClinotePopup {
         const data = await response.json();
         if (data.model_loaded) {
           statusIndicator.className = 'status-indicator online';
-          statusText.textContent = 'Whisper Server: Online';
+          statusText.textContent = '✅ Whisper Server: Online & Ready';
+          this.showNotification('Whisper server is running and ready!', 'success');
         } else {
-          statusIndicator.className = 'status-indicator offline';
-          statusText.textContent = 'Whisper Server: Model Loading';
+          statusIndicator.className = 'status-indicator loading';
+          statusText.textContent = '🔄 Whisper Server: Loading Model...';
         }
       } else {
         statusIndicator.className = 'status-indicator offline';
-        statusText.textContent = 'Whisper Server: Offline';
+        statusText.textContent = '❌ Whisper Server: Offline';
+        this.showNotification('Whisper server is not running. Please install and start the local server.', 'warning');
       }
     } catch (error) {
       statusIndicator.className = 'status-indicator offline';
-      statusText.textContent = 'Whisper Server: Offline';
+      statusText.textContent = '❌ Whisper Server: Offline';
+      this.showNotification('Whisper server is not running. Please install and start the local server.', 'warning');
     }
   }
 

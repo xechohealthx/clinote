@@ -28,12 +28,15 @@ def load_model():
     """Load the Whisper model on startup."""
     global whisper_model
     try:
+        print("🎙️ Loading Whisper model...")
         logger.info("Loading Whisper model...")
         # Use base model for speed, can be changed to 'small', 'medium', 'large'
         whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+        print("✅ Whisper model loaded successfully!")
         logger.info("Whisper model loaded successfully")
         return True
     except Exception as e:
+        print(f"❌ Failed to load Whisper model: {e}")
         logger.error(f"Failed to load Whisper model: {e}")
         return False
 
@@ -155,5 +158,10 @@ if __name__ == '__main__':
         exit(1)
     
     # Run server
+    print("🚀 Starting Clinote Whisper Server on http://localhost:11434")
+    print("✅ Server is ready to accept transcription requests!")
+    print("📱 Use the Clinote Chrome extension to start transcribing")
+    print("⏹️  Press Ctrl+C to stop the server")
+    print("")
     logger.info("Starting Clinote Whisper Server on http://localhost:11434")
     app.run(host='0.0.0.0', port=11434, debug=False) 

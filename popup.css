@@ -363,8 +363,22 @@ body {
   color: #10b981;
 }
 
+.status-indicator.loading {
+  color: #f59e0b;
+  animation: pulse 2s infinite;
+}
+
 .status-indicator.offline {
   color: #ef4444;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .status-text {

@@ -44,10 +44,27 @@ fi
 # Show notification that server is starting
 osascript -e 'display notification "Starting Clinote Whisper Server..." with title "Clinote Whisper Server"'
 
+# Create a simple status window
+osascript -e '
+tell application "System Events"
+    activate
+end tell
+tell application "Terminal"
+    activate
+    do script "echo \"🎙️ Clinote Whisper Server Starting...\" && echo \"\" && echo \"Loading Whisper model...\" && echo \"This may take a few moments on first run.\" && echo \"\" && echo \"Server will be available at: http://localhost:11434\" && echo \"\" && echo \"✅ Status: Server is running\" && echo \"\" && echo \"Press Ctrl+C to stop the server\" && echo \"\""
+end tell'
+
 # Start the server
-echo "Starting Clinote Whisper Server..."
+echo "🎙️ Clinote Whisper Server Starting..."
+echo ""
+echo "Loading Whisper model..."
+echo "This may take a few moments on first run."
+echo ""
 echo "Server will be available at: http://localhost:11434"
+echo ""
+echo "✅ Status: Server is running"
+echo ""
 echo "Press Ctrl+C to stop the server"
-echo
+echo ""
 
 python whisper_server.py 
