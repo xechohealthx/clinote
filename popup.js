@@ -493,6 +493,16 @@ macOS Quick Install:
    chmod +x Clinote-Whisper-Installer.command
    ./Clinote-Whisper-Installer.command
 
+If you already downloaded the file and got a permission error:
+   cd ~/Downloads
+   chmod +x "Clinote-Whisper-Installer.command"
+   ./Clinote-Whisper-Installer.command
+
+Or download and run the fix script:
+   curl -O https://github.com/xechohealthx/clinote/releases/latest/download/fix-permissions.sh
+   chmod +x fix-permissions.sh
+   ./fix-permissions.sh
+
 That's it! The installer will run automatically.
       `;
     } else {
