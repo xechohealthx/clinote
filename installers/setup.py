@@ -14,6 +14,7 @@ DATA_FILES = [
 OPTIONS = {
     'argv_emulation': True,
     'iconfile': '../icons/icon-128.png',
+    'excludes': ['test', 'tests', 'certdata'],
     'plist': {
         'CFBundleName': 'Clinote Whisper Server',
         'CFBundleDisplayName': 'Clinote Whisper Server',
