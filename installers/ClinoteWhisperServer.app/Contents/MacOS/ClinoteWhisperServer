@@ -7,6 +7,9 @@ APP_DIR="$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")"
 # Set up environment
 export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 
+# Show startup dialog
+osascript -e 'display dialog "Starting Clinote Whisper Server..." with title "Clinote Whisper Server" buttons {"OK"} default button "OK"'
+
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
     osascript -e 'display dialog "Python 3 is required but not installed. Please install Python 3.8+ from python.org and try again." buttons {"OK"} default button "OK" with icon stop'
@@ -44,14 +47,15 @@ fi
 # Show notification that server is starting
 osascript -e 'display notification "Starting Clinote Whisper Server..." with title "Clinote Whisper Server"'
 
-# Create a simple status window
+# Create a proper GUI window using osascript
 osascript -e '
 tell application "System Events"
     activate
 end tell
 tell application "Terminal"
     activate
-    do script "echo \"🎙️ Clinote Whisper Server Starting...\" && echo \"\" && echo \"Loading Whisper model...\" && echo \"This may take a few moments on first run.\" && echo \"\" && echo \"Server will be available at: http://localhost:11434\" && echo \"\" && echo \"✅ Status: Server is running\" && echo \"\" && echo \"Press Ctrl+C to stop the server\" && echo \"\""
+    set newTab to do script "clear"
+    do script "echo \"🎙️ Clinote Whisper Server\" && echo \"================================\" && echo \"\" && echo \"Loading Whisper model...\" && echo \"This may take a few moments on first run.\" && echo \"\" && echo \"Server will be available at: http://localhost:11434\" && echo \"\" && echo \"✅ Status: Server is running\" && echo \"\" && echo \"📱 Use the Clinote Chrome extension to transcribe\" && echo \"\" && echo \"⏹️  Press Ctrl+C to stop the server\" && echo \"\" && echo \"================================\" && echo \"\"" in newTab
 end tell'
 
 # Start the server
