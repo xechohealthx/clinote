@@ -446,31 +446,76 @@ class ClinotePopup {
   }
 
   downloadInstaller() {
-    // Open the web installer in a new tab
-    const installerUrl = 'https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Web-Installer.html';
+    const userAgent = navigator.userAgent;
+    const baseUrl = 'https://github.com/xechohealthx/clinote/releases/latest/download';
+    let downloadUrl = '';
+    let filename = '';
     
-    chrome.tabs.create({ url: installerUrl }, (tab) => {
+    if (userAgent.includes('Windows')) {
+      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.bat`;
+      filename = 'Clinote-Whisper-Installer.bat';
+    } else if (userAgent.includes('Mac')) {
+      downloadUrl = `${baseUrl}/Clinote-Whisper-Installer.command`;
+      filename = 'Clinote-Whisper-Installer.command';
+    } else {
+      // Fallback to manual instructions
+      this.showManualInstallInstructions();
+      return;
+    }
+    
+    // Use Chrome downloads API for better UX
+    chrome.downloads.download({
+      url: downloadUrl,
+      filename: filename,
+      saveAs: true
+    }, (downloadId) => {
       if (chrome.runtime.lastError) {
-        console.error('Failed to open installer:', chrome.runtime.lastError);
+        console.error('Download failed:', chrome.runtime.lastError);
         this.showManualInstallInstructions();
       } else {
-        this.showNotification('Installer opened in new tab! Follow the instructions to install.', 'success');
+        this.showNotification('Download started! Double-click the file to install.', 'success');
       }
     });
   }
 
   showManualInstallInstructions() {
-    const instructions = `
+    const userAgent = navigator.userAgent;
+    let instructions = '';
+    
+    if (userAgent.includes('Mac')) {
+      instructions = `
+macOS Quick Install:
+
+1. Open Terminal (Applications → Utilities → Terminal)
+2. Copy and paste these commands:
+   cd ~/Downloads
+   curl -O https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Whisper-Installer.command
+   chmod +x Clinote-Whisper-Installer.command
+   ./Clinote-Whisper-Installer.command
+
+That's it! The installer will run automatically.
+      `;
+    } else {
+      instructions = `
 Manual Installation Required:
 
-1. Visit the web installer: https://github.com/xechohealthx/clinote/releases/latest/download/Clinote-Web-Installer.html
-2. Choose your operating system and follow the instructions
-3. Download and run the appropriate installer
-4. After installation, double-click the desktop shortcut to start the server
-5. Server will be available at http://localhost:11434
+1. Download the installer from the extension
+2. Double-click the downloaded file to install
+3. After installation, double-click the desktop shortcut to start the server
+4. Server will be available at http://localhost:11434
 
 For detailed instructions, visit: https://github.com/xechohealthx/clinote
-    `;
+      `;
+    }
+    
+    this.showNotification('Manual installation required. Check console for instructions.', 'info');
+    console.log('=== Clinote Whisper Server Installation ===');
+    console.log(instructions);
+    console.log('=== End Instructions ===');
+    
+    // Open GitHub repository in new tab
+    chrome.tabs.create({ url: 'https://github.com/xechohealthx/clinote' });
+  }
     
     this.showNotification('Manual installation required. Check console for instructions.', 'info');
     console.log('=== Clinote Whisper Server Installation ===');
