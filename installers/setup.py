@@ -15,6 +15,7 @@ OPTIONS = {
     'argv_emulation': True,
     'iconfile': '../icons/icon-128.png',
     'excludes': ['test', 'tests', 'certdata'],
+    'includes': ['tkinter', 'tkinter.filedialog', 'tkinter.messagebox', 'tkinter.scrolledtext'],
     'plist': {
         'CFBundleName': 'Clinote Whisper Server',
         'CFBundleDisplayName': 'Clinote Whisper Server',

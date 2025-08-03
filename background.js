@@ -110,12 +110,19 @@ class ClinoteBackground {
             console.log('Background received TRANSCRIBE_AUDIO request');
             const settings = await this.getSettings();
             
-            if (!settings.apiKey) {
-              sendResponse({ error: 'OpenAI API key not configured' });
-              return;
+            let transcript;
+            if (settings.localMode) {
+              console.log('Using local Whisper server');
+              transcript = await this.callLocalWhisperAPI(message.audioBase64, message.audioType);
+            } else {
+              console.log('Using OpenAI Whisper API');
+              if (!settings.apiKey) {
+                sendResponse({ error: 'OpenAI API key not configured' });
+                return;
+              }
+              transcript = await this.callOpenAIWhisperAPI(message.audioBase64, settings.apiKey, message.audioType);
             }
             
-            const transcript = await this.callWhisperAPI(message.audioBase64, settings.apiKey, message.audioType);
             console.log('Background Whisper API transcript:', transcript);
             sendResponse({ transcript });
           } catch (error) {
