@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
 const Download = () => {
   console.log('Download component rendering...');
+  
+  // State to track which download is in progress
+  const [downloading, setDownloading] = useState<string | null>(null);
+  
+  const handleDownload = (filename: string, url: string) => {
+    setDownloading(filename);
+    
+    // Create a temporary link element to trigger download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Reset the downloading state after a short delay
+    setTimeout(() => {
+      setDownloading(null);
+    }, 2000);
+  };
   
   return (
     <div className="min-h-screen bg-white">
@@ -39,13 +59,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">98.5MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote Setup 1.1.0.exe"
-                      className="w-full inline-block bg-gradient-to-r from-blue-600 to-emerald-500 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote Setup 1.1.0.exe', '/downloads/Clinote Setup 1.1.0.exe')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote Setup 1.1.0.exe'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-blue-600 to-emerald-500 hover:shadow-lg'
+                      }`}
                     >
-                      Download Setup
-                    </a>
+                      {downloading === 'Clinote Setup 1.1.0.exe' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download Setup'
+                      )}
+                    </button>
                   </div>
                   
                   <div className="border border-gray-200 rounded-xl p-4">
@@ -56,13 +90,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">98.3MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote 1.1.0.exe"
-                      className="w-full inline-block bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote 1.1.0.exe', '/downloads/Clinote 1.1.0.exe')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote 1.1.0.exe'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-gray-600 to-gray-700 hover:shadow-lg'
+                      }`}
                     >
-                      Download Portable
-                    </a>
+                      {downloading === 'Clinote 1.1.0.exe' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download Portable'
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -84,13 +132,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">123MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote-1.1.0.dmg"
-                      className="w-full inline-block bg-gradient-to-r from-blue-600 to-emerald-500 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote-1.1.0.dmg', '/downloads/Clinote-1.1.0.dmg')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote-1.1.0.dmg'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-blue-600 to-emerald-500 hover:shadow-lg'
+                      }`}
                     >
-                      Download .dmg
-                    </a>
+                      {downloading === 'Clinote-1.1.0.dmg' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download .dmg'
+                      )}
+                    </button>
                   </div>
                   
                   <div className="border border-gray-200 rounded-xl p-4">
@@ -101,13 +163,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">119MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote-1.1.0-arm64.dmg"
-                      className="w-full inline-block bg-gradient-to-r from-blue-600 to-emerald-500 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote-1.1.0-arm64.dmg', '/downloads/Clinote-1.1.0-arm64.dmg')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote-1.1.0-arm64.dmg'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-blue-600 to-emerald-500 hover:shadow-lg'
+                      }`}
                     >
-                      Download ARM64
-                    </a>
+                      {downloading === 'Clinote-1.1.0-arm64.dmg' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download ARM64'
+                      )}
+                    </button>
                   </div>
                   
                   <div className="border border-gray-200 rounded-xl p-4">
@@ -118,13 +194,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">120MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote-1.1.0-mac.zip"
-                      className="w-full inline-block bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote-1.1.0-mac.zip', '/downloads/Clinote-1.1.0-mac.zip')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote-1.1.0-mac.zip'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-gray-600 to-gray-700 hover:shadow-lg'
+                      }`}
                     >
-                      Download ZIP
-                    </a>
+                      {downloading === 'Clinote-1.1.0-mac.zip' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download ZIP'
+                      )}
+                    </button>
                   </div>
                   
                   <div className="border border-gray-200 rounded-xl p-4">
@@ -135,13 +225,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">116MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote-1.1.0-arm64-mac.zip"
-                      className="w-full inline-block bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote-1.1.0-arm64-mac.zip', '/downloads/Clinote-1.1.0-arm64-mac.zip')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote-1.1.0-arm64-mac.zip'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-gray-600 to-gray-700 hover:shadow-lg'
+                      }`}
                     >
-                      Download ZIP
-                    </a>
+                      {downloading === 'Clinote-1.1.0-arm64-mac.zip' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download ZIP'
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -163,13 +267,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">132MB</span>
                     </div>
-                    <a 
-                      href="/downloads/Clinote-1.1.0.AppImage"
-                      className="w-full inline-block bg-gradient-to-r from-blue-600 to-emerald-500 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('Clinote-1.1.0.AppImage', '/downloads/Clinote-1.1.0.AppImage')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'Clinote-1.1.0.AppImage'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-blue-600 to-emerald-500 hover:shadow-lg'
+                      }`}
                     >
-                      Download AppImage
-                    </a>
+                      {downloading === 'Clinote-1.1.0.AppImage' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download AppImage'
+                      )}
+                    </button>
                   </div>
                   
                   <div className="border border-gray-200 rounded-xl p-4">
@@ -180,13 +298,27 @@ const Download = () => {
                       </div>
                       <span className="text-sm text-gray-500">79MB</span>
                     </div>
-                    <a 
-                      href="/downloads/clinote_1.1.0_amd64.deb"
-                      className="w-full inline-block bg-gradient-to-r from-gray-600 to-gray-700 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center"
-                      download
+                    <button 
+                      onClick={() => handleDownload('clinote_1.1.0_amd64.deb', '/downloads/clinote_1.1.0_amd64.deb')}
+                      disabled={downloading !== null}
+                      className={`w-full inline-block text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 text-center flex items-center justify-center ${
+                        downloading === 'clinote_1.1.0_amd64.deb'
+                          ? 'bg-gray-500 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-gray-600 to-gray-700 hover:shadow-lg'
+                      }`}
                     >
-                      Download .deb
-                    </a>
+                      {downloading === 'clinote_1.1.0_amd64.deb' ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Downloading...
+                        </>
+                      ) : (
+                        'Download .deb'
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
