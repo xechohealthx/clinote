@@ -1,0 +1,88 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="50" fill="white" fill-opacity="0.1"/>
+  <circle cx="1100" cy="530" r="80" fill="white" fill-opacity="0.1"/>
+  <circle cx="200" cy="500" r="30" fill="white" fill-opacity="0.1"/>
+  
+  <!-- Main content area -->
+  <rect x="100" y="100" width="1000" height="430" rx="20" fill="white" fill-opacity="0.95"/>
+  
+  <!-- Logo -->
+  <g transform="translate(150, 150)">
+    <!-- Logo background -->
+    <rect width="80" height="80" rx="16" fill="url(#logoGradient)"/>
+    
+    <!-- Stethoscope icon -->
+    <g transform="translate(20, 20)">
+      <!-- Stethoscope tubing -->
+      <path d="M8 12C8 10.8954 8.89543 10 10 10H12C13.1046 10 14 10.8954 14 12V14C14 15.1046 13.1046 16 12 16H10C8.89543 16 8 15.1046 8 14V12Z" fill="white" fill-opacity="0.3"/>
+      <!-- Main tubing -->
+      <path d="M14 13C14 12.4477 14.4477 12 15 12H17C17.5523 12 18 12.4477 18 13V15C18 15.5523 17.5523 16 17 16H15C14.4477 16 14 15.5523 14 15V13Z" fill="white"/>
+      <!-- Earpieces -->
+      <circle cx="10" cy="13" r="1.5" fill="white" fill-opacity="0.8"/>
+      <circle cx="10" cy="15" r="1.5" fill="white" fill-opacity="0.8"/>
+      <!-- Chest piece -->
+      <circle cx="18" cy="14" r="2" fill="white" fill-opacity="0.9"/>
+      <circle cx="18" cy="14" r="1" fill="url(#logoGradient)"/>
+      <!-- Medical cross -->
+      <path d="M22 10H24V14H22V10Z" fill="white"/>
+      <path d="M21 11H25V13H21V11Z" fill="white"/>
+    </g>
+  </g>
+  
+  <!-- Brand name -->
+  <text x="250" y="190" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1F2937">
+    Clinote
+  </text>
+  
+  <!-- Tagline -->
+  <text x="600" y="280" font-family="Arial, sans-serif" font-size="36" font-weight="600" fill="#1F2937" text-anchor="middle">
+    AI That Listens & Charts While You Practice Medicine in Real-Time
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="340" font-family="Arial, sans-serif" font-size="24" fill="#6B7280" text-anchor="middle">
+    Transform patient conversations into professional SOAP notes
+  </text>
+  
+  <!-- Features -->
+  <g transform="translate(150, 400)">
+    <!-- Feature 1 -->
+    <circle cx="15" cy="15" r="8" fill="#10B981"/>
+    <text x="35" y="20" font-family="Arial, sans-serif" font-size="18" fill="#374151">Save 2-3 hours daily on documentation</text>
+    
+    <!-- Feature 2 -->
+    <circle cx="15" cy="55" r="8" fill="#2563EB"/>
+    <text x="35" y="60" font-family="Arial, sans-serif" font-size="18" fill="#374151">HIPAA-compliant AI transcription</text>
+    
+    <!-- Feature 3 -->
+    <circle cx="15" cy="95" r="8" fill="#8B5CF6"/>
+    <text x="35" y="100" font-family="Arial, sans-serif" font-size="18" fill="#374151">Real-time SOAP note generation</text>
+  </g>
+  
+  <!-- CTA -->
+  <rect x="400" y="520" width="200" height="50" rx="25" fill="url(#logoGradient)"/>
+  <text x="500" y="550" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">
+    Try Free Today
+  </text>
+  
+  <!-- URL -->
+  <text x="600" y="580" font-family="Arial, sans-serif" font-size="16" fill="#6B7280" text-anchor="middle">
+    clinote.ai
+  </text>
+</svg>
