@@ -21,7 +21,7 @@ import SetupGuide from './components/SetupGuide';
 import VideoTutorials from './components/VideoTutorials';
 import EMRIntegration from './components/EMRIntegration';
 import ROICalculator from './components/ROICalculator';
-import AboutUs from './components/AboutUs';
+
 import Download from './components/Download';
 
 function App() {
@@ -88,9 +88,7 @@ function App() {
     return <ROICalculator />;
   }
   
-  if (path === '/about') {
-    return <AboutUs />;
-  }
+
   
   if (path === '/download') {
     return <Download />;
